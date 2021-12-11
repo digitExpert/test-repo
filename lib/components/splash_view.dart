@@ -61,7 +61,8 @@ class _SplashViewState extends State<SplashView> {
                   bottom: MediaQuery.of(context).padding.bottom + 16),
               child: InkWell(
                 onTap: () {
-                  widget.animationController.animateTo(0.2);
+                  print('next page');
+                  widget.animationController.animateTo(0.8);
                 },
                 child: Container(
                   height: 58,
