@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
         platform: TargetPlatform.iOS,
       ),
       home: IntroductionAnimationScreen(),
+      // home: AdounaHome(),
     );
   }
 }

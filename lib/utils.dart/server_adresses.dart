@@ -6,4 +6,5 @@
 
 class ServerAdresses {
   static const base_url = 'https://www.guisko.com/productstore/api/';
+  static const adresse_service = 'http://tools.mns-consulting.fr:8081/';
 }
