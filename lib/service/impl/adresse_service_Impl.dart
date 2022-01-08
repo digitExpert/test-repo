@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:collectivity_demo/model/commune.dart';
 import 'package:collectivity_demo/model/departement.dart';
+import 'package:collectivity_demo/model/district.dart';
 import 'package:collectivity_demo/model/region.dart';
 import 'package:collectivity_demo/service/adresse_service.dart';
 import 'package:collectivity_demo/utils.dart/server_adresses.dart';
@@ -99,9 +100,77 @@ class AdresseServiceImpl extends AdresseService {
       }
       print('retrieved communes : $communes');
 
-      communes.forEach((e) => selectDepts.add(e.libelle));
+      communes.forEach((e) => selectDepts.add(e.libelle!));
 
       return communes;
+    } else {
+      print(
+          'erreur lors de la recupération des communes. ${response.statusCode}');
+      throw Exception();
+    }
+  }
+
+  @override
+  Future<List<District>> findAllByRegion(
+      {int? id = 1, required String term}) async {
+    print('loading districts...');
+
+    final Response response = await httpClient.get(
+        Uri.parse(ServerAdresses.adresse_service +
+            'api/adresse/districts/region/$id'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        });
+
+    if (response.statusCode == 200) {
+      List<District> districts = [];
+
+      final responseJson = jsonDecode(utf8.decode(response.bodyBytes));
+
+      print('success ! $responseJson');
+
+      for (var i = 0; i < responseJson.length; i++) {
+        districts.add(District.fromJson(responseJson[i]));
+      }
+      print('retrieved districts : $districts');
+
+      return districts
+          .where((element) =>
+              element.libelle!.toLowerCase().contains(term.toLowerCase()))
+          .toList();
+    } else {
+      print(
+          'erreur lors de la recupération des districts. ${response.statusCode}');
+      throw Exception();
+    }
+  }
+
+  @override
+  Future<List<Commune>> findAllCommunesByRegion(
+      {int? id = 1, required String term}) async {
+    final Response response = await httpClient.get(
+        Uri.parse(
+            ServerAdresses.adresse_service + 'api/adresse/communes/region/$id'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        });
+
+    if (response.statusCode == 200) {
+      List<Commune> districts = [];
+
+      final responseJson = jsonDecode(utf8.decode(response.bodyBytes));
+
+      print('success ! $responseJson');
+
+      for (var i = 0; i < responseJson.length; i++) {
+        districts.add(Commune.fromJson(responseJson[i]));
+      }
+      print('retrieved Communes : $districts');
+
+      return districts
+          .where((element) =>
+              element.libelle!.toLowerCase().contains(term.toLowerCase()))
+          .toList();
     } else {
       print(
           'erreur lors de la recupération des communes. ${response.statusCode}');

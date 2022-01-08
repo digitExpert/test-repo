@@ -1,3 +1,4 @@
+import 'package:collectivity_demo/components/signin_screen.dart';
 import 'package:collectivity_demo/inscriptionScreen.dart';
 import 'package:collectivity_demo/model/constant.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,11 +13,14 @@ class AdounaHome extends StatelessWidget {
       child: Scaffold(
         body: Column(
           children: [
-            Container(
-              constraints: BoxConstraints(maxWidth: 350, maxHeight: 350),
-              child: Image.asset(
-                'assets/introduction_animation/welcome.png',
-                fit: BoxFit.contain,
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Container(
+                constraints: BoxConstraints(maxWidth: 350, maxHeight: 450),
+                child: Image.asset(
+                  'assets/introduction_animation/image2.jpeg',
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
             Text(
@@ -45,17 +49,17 @@ class AdounaHome extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.only(left: 16.0, right: 16.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Sign Up',
+                      'Inscription',
                       style: TextStyle(
                         color: Colors.red,
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    Icon(Icons.arrow_forward_rounded, color: Colors.white),
+                    Icon(Icons.arrow_forward_rounded, color: Colors.redAccent),
                   ],
                 ),
               ),
@@ -67,7 +71,7 @@ class AdounaHome extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Already have an account? ',
+                      'Vous avez déjà un compte? ',
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 14,
@@ -82,13 +86,15 @@ class AdounaHome extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      onPressed: null,
-                      //() {
-                      //   Navigator.push(context,
-                      //       MaterialPageRoute(builder: (context) => HomePage()));
-                      // },
+                      onPressed: () {
+                        print('connecion...');
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SignInScreen()));
+                      },
                       child: const Text(
-                        'Login',
+                        'Connexion',
                         style: TextStyle(color: AppTheme.primary),
                       ),
                     ),

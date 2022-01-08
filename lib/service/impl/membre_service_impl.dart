@@ -12,7 +12,9 @@ class MemberServiceImpl implements MemberService {
   MemberServiceImpl({required this.httpClient});
 
   @override
-  Future<http.Response> addMembre(Membre membre) async {
+  Future<Membre> addMembre(Membre membre) async {
+    print('saving member : $membre');
+
     final http.Response response = await httpClient.post(
         Uri.parse(ServerAdresses.base_url + 'new-member/'),
         headers: <String, String>{
@@ -20,6 +22,14 @@ class MemberServiceImpl implements MemberService {
         },
         body: jsonEncode(membre));
 
-    return response;
+    print('response status : ${response.statusCode}');
+
+    final responseJson = jsonDecode(utf8.decode(response.bodyBytes));
+
+    Membre c = Membre.fromJson(responseJson);
+
+    print('saved Membre : $c');
+
+    return c;
   }
 }

@@ -1,6 +1,11 @@
-import 'package:collectivity_demo/model/district.dart';
+import 'package:collectivity_demo/model/commune.dart';
 import 'package:equatable/equatable.dart';
 
+import 'package:json_annotation/json_annotation.dart';
+
+part 'membre.g.dart';
+
+@JsonSerializable()
 class Membre extends Equatable {
   final int? id;
   final String nom;
@@ -9,11 +14,11 @@ class Membre extends Equatable {
   final String password;
   final String? email;
   final String telephone;
-  final String telephonereferant;
+  final String telephoneReferant;
   final String numCarteElecteur;
   final String numCarteIdentite;
 
-  District quartier;
+  Commune quartier;
 
   Membre(
       {this.id,
@@ -23,11 +28,11 @@ class Membre extends Equatable {
       this.email,
       required this.genre,
       required this.telephone,
-      required this.telephonereferant,
+      required this.telephoneReferant,
       required this.numCarteElecteur,
       required this.numCarteIdentite,
       required this.quartier});
-
+/* 
   factory Membre.fromJson(Map<String, dynamic> json) {
     return Membre(
         id: json['id'],
@@ -43,6 +48,29 @@ class Membre extends Equatable {
         quartier: json['quartier']);
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'nom': nom,
+      'prenom': prenom,
+      'password': password,
+      'email': email,
+      'genre': genre,
+      'telephone': telephone,
+      'telephonereferant': telephonereferant,
+      'numCarteElecteur': numCarteElecteur,
+      'numCarteIdentite': numCarteIdentite,
+      'quartier': quartier.toJson()
+    };
+  }
+ */
+
+  /// factory.
+  factory Membre.fromJson(Map<String, dynamic> json) => _$MembreFromJson(json);
+
+  /// Connect the generated [_$DistrictToJson] function to the `toJson` method.
+  Map<String, dynamic> toJson() => _$MembreToJson(this);
+
   @override
   // TODO: implement props
   List<Object> get props => [
@@ -51,7 +79,7 @@ class Membre extends Equatable {
         password,
         telephone,
         genre,
-        telephonereferant,
+        telephoneReferant,
         numCarteElecteur,
         numCarteIdentite,
         quartier

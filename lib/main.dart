@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:collectivity_demo/components/adouna_home.dart';
 import 'package:collectivity_demo/introduction_animation_screen.dart';
 import 'package:collectivity_demo/model/constant.dart';
 import 'package:flutter/material.dart';
@@ -32,8 +33,8 @@ class MyApp extends StatelessWidget {
         textTheme: AppTheme.textTheme,
         platform: TargetPlatform.iOS,
       ),
-      home: IntroductionAnimationScreen(),
-      // home: AdounaHome(),
+      //home: IntroductionAnimationScreen(),
+      home: AdounaHome(),
     );
   }
 }
